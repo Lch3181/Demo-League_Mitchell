@@ -164,12 +164,12 @@ int main(int argc, char* argv[])
 		if (player.car->Health > 0)//keep updating objects if player is still alive
 		{
 			//spawn enemies
-			for (unsigned int i = (unsigned int)enemies.size(); i < EnemiesNumbers; i++)
+			for (unsigned int i = enemies.size(); i < EnemiesNumbers; i++)
 			{
 				uniform_int<int> randomElement(1, 5);
 				Car* car = new Car(enemyCarImage, randomElement(mt));
 				int gunDamage = 5 * (int)ScoreScale;
-				Gun* gun = new Gun(enemyGunImage, enemyProjectileImage, 2.0f, gunDamage, 1.0f);
+				Gun* gun = new Gun(enemyGunImage, enemyProjectileImage, 6.0f, gunDamage, 1.0f);
 				gun->Element = 0;
 				car->Element = randomElement(mt);
 				car->accelAmount = 10.0f;
@@ -225,7 +225,7 @@ int main(int argc, char* argv[])
 				}
 
 				//isCOlliding(enemies, enemies)
-				for (unsigned int j = 0; j < EnemiesNumbers; ++j)
+				for (unsigned int j = 0; j < enemies.size(); ++j)
 				{
 					if (i == j)
 						continue;
@@ -429,7 +429,7 @@ int main(int argc, char* argv[])
 		if (player.car->Health > 0)
 		{
 			font.draw(screen, 350, 20, NFont::Color(255, 255, 255), "Score: %d", Score);//Score
-			font.draw(screen, 20, 20, NFont::Color(0, 255, 0), "Health: %d", player.car->Health);//player's Health amount
+			font.draw(screen, 20, 20, NFont::Color(255 * abs(((1000.0f - (float)player.car->Health) / 1000.0f)), 255 * abs(1-((1000.0f - (float)player.car->Health) /1000.0f)), 0), "Health: %d", player.car->Health);//player's Health amount
 			font.draw(screen, 20, 40, player.gun->AmmoFontColor, "Gun Energy: %d", player.gun->Ammo);//gun1's ammo amount
 		}
 		else
