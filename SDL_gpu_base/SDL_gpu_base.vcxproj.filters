@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Collision.cpp">
+      <Filter>cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Gun.cpp">
+      <Filter>cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Projectile.cpp">
+      <Filter>cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Car.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="Gun.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerController.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="Projectiles.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="Vec2.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Blobz\Blobz\Vector.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthBar.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="Loot.h">
+      <Filter>header</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="cpp">
+      <UniqueIdentifier>{c2b87925-b394-47ab-9964-b7a1c7c5813f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="header">
+      <UniqueIdentifier>{0acd864e-054d-4dd9-b524-2463547a3be1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
