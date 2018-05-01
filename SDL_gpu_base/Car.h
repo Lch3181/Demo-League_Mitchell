@@ -49,7 +49,7 @@ public:
 
 	void Update(float dt)
 	{
-		
+		SetElement();
 
 		float radiansPerDegree = (float)M_PI / 180.0f;
 		facingVector.x = cos(radiansPerDegree * facingDegrees);

@@ -62,11 +62,12 @@ public:
 
 		//Mouse
 		//get mouse position for gun's facing degree
-		gun->facingDegrees = atan2(My - car->position.y,Mx - car->position.x) * 180 / (float)M_PI;
+
 		//if left button down
 		if (SDL_GetMouseState(&Mx, &My)&SDL_BUTTON_LMASK)
 		{
-			HandleEvent(projectiles);
+			gun->facingDegrees = atan2(My - car->position.y, Mx - car->position.x) * 180 / (float)M_PI;
+			gun->Gun::Fire(projectiles);
 		}
 
 

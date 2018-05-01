@@ -28,19 +28,19 @@ public:
 
 		uniform_int<int> rand(1, 100);
 		int rd = rand(mt);
-		if (rd <= 15)
+		if (rd <= 20)
 		{
 			image = AmmoBoxImage;
 			type = 1;
 			return true;
 		}
-		if (rd > 15 && rd <= 25)
+		if (rd > 20 && rd <= 35)
 		{
 			image = RePairKitImage;
 			type = 3;
 			return true;
 		}
-		if (rd > 25 && rd <= 35)
+		if (rd > 35 && rd <= 50)
 		{
 			image = PowerUpImage;
 			type = 2;

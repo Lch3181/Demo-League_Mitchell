@@ -1,25 +1,28 @@
+This is a classic 2d top down game where you control a car and kill all the enemies that chase you and get highest score.
 
-refill energy:
-when enemy got killed, it drops the remain energy of it.
+Enemy drops:
+Energy refill
+repair kit
+power up
 
 Element counter list:
-2x damage
+2x damage and 2x score
 Fire>Nature
 Nature>Water
 Water>Fire
-
-1.5x damage
-Dark>Light
-Light>Dark
+Dark<>Light
 
 1.0x damage
 White<>Every element
 
 Player Movement:
-
 Move: WAD
 
 Fire: left click
+cost one energy
+
+EMP(discard all the projectiles(include yours) on screen): R
+cost 100 energy
 
 Switich elements: 
 Q:Fire 

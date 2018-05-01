@@ -8,13 +8,15 @@
 #include <cmath>
 #include <NFont_gpu.h>
 #include"Loot.h"
+#include<fstream>
 using namespace std;
 
-//AABB isColliding check
+//functions
 bool isColliding(Car* rec1, PlayerController rec2);//(enemry, player)
 bool isColliding(Car* rec1, Car* rec2);//(enemy, enemry)
 bool InRange(Car* rec1);//(enemy, screen)
 bool isColliding(Car* rec1, Loot* rec2);//player car, loot
+bool isCounter(int player, int enemy);//counter element(player projectile, enemy)
 
 int main(int argc, char* argv[])
 {
@@ -77,7 +79,7 @@ int main(int argc, char* argv[])
 	player.car->accelAmount = 25.0f;
 	player.car->position.w = 50.0f;
 	player.car->position.h = 30.0f;
-	player.CreateGun(gun1Image, Projectile1Image, 10.0f, 20, 0.05f);
+	player.CreateGun(gun1Image, Projectile1Image, 10.0f, 50, 0.05f);
 	player.gun->position.w = 30.0f;
 	player.car->player = true;
 	player.car->Health = 1000;
@@ -85,6 +87,8 @@ int main(int argc, char* argv[])
 	//GPU_SetRGB(carImage, 255, 0, 0);//change color of the image
 	int Score = 0;
 	float ScoreScale = 1.0f;//scale up when time past
+	int temp = 2;
+	int EnemyElement = 0;
 
 	//set camera
 	Vec2 camera(player.car->position.x, player.car->position.y);
@@ -95,6 +99,9 @@ int main(int argc, char* argv[])
 	Vector<Car*> enemies;
 	Vector<Gun*> enemiesGun;
 	unsigned int EnemiesNumbers = 15;
+
+	//Pause game for upgrade and check stat
+	bool Pause = false;
 
 	//add lootBox
 	Vector<Loot*> loot;
@@ -140,6 +147,17 @@ int main(int argc, char* argv[])
 			{
 				if (event.key.keysym.sym == SDLK_ESCAPE)
 					done = true;
+				if (event.key.keysym.sym == SDLK_p)
+					Pause = !Pause;
+				if (event.key.keysym.sym == SDLK_r)
+				{
+					if (player.gun->Ammo >= 100)
+					{
+						projectiles.clear();
+						enemyprojectiles.clear();
+						player.gun->Ammo -= 100;
+					}
+				}
 				if (event.key.keysym.sym == SDLK_SPACE)
 				{
 					DarkMode = !DarkMode;
@@ -163,15 +181,15 @@ int main(int argc, char* argv[])
 		GPU_Blit(backgroundImage, nullptr, screen, camera.x, camera.y);
 		if (player.car->Health > 0)//keep updating objects if player is still alive
 		{
+
+
 			//spawn enemies
 			for (unsigned int i = enemies.size(); i < EnemiesNumbers; i++)
 			{
-				uniform_int<int> randomElement(1, 5);
-				Car* car = new Car(enemyCarImage, randomElement(mt));
-				int gunDamage = 5 * (int)ScoreScale;
-				Gun* gun = new Gun(enemyGunImage, enemyProjectileImage, 6.0f, gunDamage, 1.0f);
+				Car* car = new Car(enemyCarImage, EnemyElement);
+				int gunDamage = 1 * (int)ScoreScale;
+				Gun* gun = new Gun(enemyGunImage, enemyProjectileImage, 3.0f, gunDamage, 1.0f);
 				gun->Element = 0;
-				car->Element = randomElement(mt);
 				car->accelAmount = 10.0f;
 				car->position.w = 20.0f;
 				car->position.h = 30.0f;
@@ -182,7 +200,7 @@ int main(int argc, char* argv[])
 				car->position.y = player.car->position.y + (800 * (float)sin(rand(mt)));
 				enemies.push_back(car);
 				enemiesGun.push_back(gun);
-				
+
 			}
 
 			//colider
@@ -247,14 +265,32 @@ int main(int argc, char* argv[])
 				{
 					if (projectiles[j]->Projectile::IsColliding(enemies[i]))
 					{
-						Score += projectiles[j]->damage;
 
 
 						//-hitpoint or smth
-						enemies[i]->Health -= projectiles[j]->damage;
+						if (isCounter(player.gun->Element, EnemyElement))
+						{
+							cout << 1 << endl;
+							enemies[i]->Health -= projectiles[j]->damage * 2;
+							Score += projectiles[j]->damage * 2;
+							if (enemies[i]->Health <= 0)
+							{
+								Score += enemies[i]->Health * 2;
+
+							}
+						}
+						else
+						{
+							enemies[i]->Health -= projectiles[j]->damage;
+							Score += projectiles[j]->damage;
+							if (enemies[i]->Health <= 0)
+							{
+								Score += enemies[i]->Health;
+							}
+						}
+
 						if (enemies[i]->Health <= 0)
 						{
-							Score += enemies[i]->Health;
 
 							//loot drop
 							Loot* _loot = new Loot();
@@ -284,7 +320,7 @@ int main(int argc, char* argv[])
 				for (unsigned int j = 0; j < enemyprojectiles.size(); ++j)
 				{
 					if (enemyprojectiles[j]->Projectile::IsColliding(player.car))
-					{				
+					{
 						player.car->Health -= enemyprojectiles[j]->damage;
 						delete enemyprojectiles[j];
 						enemyprojectiles.remove_at(j);
@@ -298,8 +334,8 @@ int main(int argc, char* argv[])
 				{
 					if (isColliding(player.car, loot[j]))
 					{
-						if (loot[j]->type==1) player.gun->Ammo += 50;
-						else if (loot[j]->type == 2)player.gun->damage += 10;
+						if (loot[j]->type == 1) player.gun->Ammo += 50;
+						else if (loot[j]->type == 2)player.gun->damage += 5;
 
 						if (loot[j]->type == 3 && player.car->Health + 100 <= 1000)player.car->Health += 100;
 						else if (loot[j]->type == 3 && player.car->Health + 100 > 1000)player.car->Health = 1000;
@@ -360,6 +396,8 @@ int main(int argc, char* argv[])
 					enemies[i]->Update(dt);
 					enemies[i]->isAccelerating = true;
 					enemiesGun[i]->firerateTimer += dt;
+
+
 				}
 
 				for (unsigned int i = 0; i < enemyprojectiles.size(); ++i)
@@ -374,6 +412,14 @@ int main(int argc, char* argv[])
 						enemyprojectiles.remove_at(i);
 						--i;
 					}
+				}
+
+				//when enemy level increase
+				if (ScoreScale >= temp)
+				{
+					uniform_int<int> random(1, 5);
+					EnemyElement = random(mt);
+					temp++;
 				}
 
 				//loot
@@ -402,10 +448,11 @@ int main(int argc, char* argv[])
 			player.car->Draw(screen);
 			player.gun->Draw(screen);
 
+
+
 		}//end of player.health>0
 
-
-		 //drawing
+		//drawing
 		for (unsigned int i = 0; i < enemies.size(); ++i)
 		{
 			enemies[i]->Draw(screen);
@@ -423,21 +470,23 @@ int main(int argc, char* argv[])
 		{
 			loot[i]->Draw(screen);
 		}
-		GPU_RectangleFilled(screen, 30, 30, 100, 30, SDL_Color{ 0, 255, 0 });//not working
+
+		GPU_RectangleFilled(screen, 20, 20, 100, 100, SDL_Color{ 255,255,255 });
 
 		//font
 		if (player.car->Health > 0)
 		{
 			font.draw(screen, 350, 20, NFont::Color(255, 255, 255), "Score: %d", Score);//Score
-			font.draw(screen, 20, 20, NFont::Color(255 * abs(((1000.0f - (float)player.car->Health) / 1000.0f)), 255 * abs(1-((1000.0f - (float)player.car->Health) /1000.0f)), 0), "Health: %d", player.car->Health);//player's Health amount
-			font.draw(screen, 20, 40, player.gun->AmmoFontColor, "Gun Energy: %d", player.gun->Ammo);//gun1's ammo amount
+			font.draw(screen, 20, 20, NFont::Color(255 * abs(((1000.0f - (float)player.car->Health) / 1000.0f)), 255 * abs(1 - ((1000.0f - (float)player.car->Health) / 1000.0f)), 0), "Health: %d", player.car->Health);//player's Health amount
+			font.draw(screen, 20, 40, player.gun->AmmoFontColor, "Energy: %d", player.gun->Ammo);//gun1's ammo amount
+			font.draw(screen, 20, 60, player.gun->AmmoFontColor, "Damage: %d", player.gun->damage);//gun1's ammo amount
 		}
 		else
 		{
 			font.draw(screen, 350, 300, NFont::Color(150, 150, 150), "Final Score: %d", Score);//Final Score
 			font.draw(screen, 20, 20, NFont::Color(255, 0, 0), "Health: %d", player.car->Health);//player ran out of Health amount
 		}
-		if (Score<1000) font.draw(screen, 350, 250, NFont::Color(150, 150, 150), "Try your best!!!!!");//title screen when game start
+		if (Score < 1000) font.draw(screen, 350, 250, NFont::Color(150, 150, 150), "Try your best!!!!!");//title screen when game start
 		font.draw(screen, 350, 5, NFont::Color(255, 255, 255), "Level : %d", (int)ScoreScale);
 
 		//Draw stuff
@@ -458,7 +507,6 @@ int main(int argc, char* argv[])
 		accumulator += (frameEnd - frameStart) / 1000.0f;
 
 		//test
-
 	}
 
 	//free stuff and close resources

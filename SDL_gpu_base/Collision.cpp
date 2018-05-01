@@ -33,3 +33,32 @@ bool InRange(Car* rec1)
 	Vec2 separation = rec1->position - ScreenSize;
 	return (separation.Magnitude() < ScreenSize.x);
 }
+
+//counter element(player projectile, enemy)
+bool isCounter(int player, int enemy)
+{
+	if (player == 1 && enemy == 2)
+	{
+		return true;
+	}
+	else if (player == 2 && enemy == 3)
+	{
+		return true;
+	}
+	else if (player == 3 && enemy == 1)
+	{
+		return true;
+	}
+	else if (player == 4 && enemy == 5)
+	{
+		return true;
+	}
+	else if (player == 5 && enemy == 4)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
