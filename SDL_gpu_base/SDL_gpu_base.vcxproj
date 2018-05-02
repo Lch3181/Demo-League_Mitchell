@@ -71,12 +71,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LibraryPath>$(SolutionDir)SDL2-2.0.7\lib\x64;$(SolutionDir)NFont_gpu-dev-vs\lib;$(SolutionDir)SDL_gpu-VS2017-32\lib</LibraryPath>
-    <IncludePath>$(SolutionDir)NFont_gpu-dev-vs\include;$(SolutionDir)SDL2-2.0.7\include;$(SolutionDir)SDL_gpu-VS2017-32\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)SDL2-2.0.7\include;$(SolutionDir)SDL_gpu-VS2017-32\include;$(SolutionDir)NFont_gpu-dev-vs\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)NFont_gpu-dev-vs\lib;$(SolutionDir)SDL_gpu-VS2017-32\lib;$(SolutionDir)SDL2-2.0.7\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LibraryPath>$(SolutionDir)SDL2-2.0.7\lib\x64;$(SolutionDir)NFont_gpu-dev-vs\lib;$(SolutionDir)SDL_gpu-VS2017-32\lib</LibraryPath>
-    <IncludePath>$(SolutionDir)NFont_gpu-dev-vs\include;$(SolutionDir)SDL2-2.0.7\include;$(SolutionDir)SDL_gpu-VS2017-32\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)SDL2-2.0.7\include;$(SolutionDir)SDL_gpu-VS2017-32\include;$(SolutionDir)NFont_gpu-dev-vs\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)NFont_gpu-dev-vs\lib;$(SolutionDir)SDL_gpu-VS2017-32\lib;$(SolutionDir)SDL2-2.0.7\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -86,8 +86,8 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_gpu.lib;NFont_gpu.lib</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
+      <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_gpu.lib;NFont_gpu.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -110,8 +110,8 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_gpu.lib;NFont_gpu.lib</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
+      <AdditionalDependencies>SDL2main.lib;SDL2.lib;SDL2_gpu.lib;NFont_gpu.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

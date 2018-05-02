@@ -82,7 +82,7 @@ int main(int argc, char* argv[])
 	player.CreateGun(gun1Image, Projectile1Image, 10.0f, 50, 0.05f);
 	player.gun->position.w = 30.0f;
 	player.car->player = true;
-	player.car->Health = 10;
+	player.car->Health = 1000;
 	bool DarkMode = false;//switich gun's element between dark and light
 	//GPU_SetRGB(carImage, 255, 0, 0);//change color of the image
 	int Score = 0;

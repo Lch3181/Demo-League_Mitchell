@@ -1,1 +1,2 @@
-﻿LINK : fatal error LNK1104: cannot open file 'msvcprtd.lib'
+﻿     Creating library D:\Mitchell\Documents\GAM 220\Demo League_Mitchell\Debug\Demo League.lib and object D:\Mitchell\Documents\GAM 220\Demo League_Mitchell\Debug\Demo League.exp
+  SDL_gpu_base.vcxproj -> D:\Mitchell\Documents\GAM 220\Demo League_Mitchell\Debug\Demo League.exe

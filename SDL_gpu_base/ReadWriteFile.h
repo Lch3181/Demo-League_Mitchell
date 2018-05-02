@@ -99,7 +99,11 @@ public:
 			if(j<9)
 				font.draw(screen, 300, height, white, "%d             %d", j + 1, ScoreLearderboard[j]);
 			else
+			{
 				font.draw(screen, 300, height, white, "%d            %d", j + 1, ScoreLearderboard[j]);
+				break;
+			}
+			
 		}
 	}
 
