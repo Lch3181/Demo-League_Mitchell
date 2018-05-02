@@ -8,7 +8,7 @@
 #include <cmath>
 #include <NFont_gpu.h>
 #include"Loot.h"
-#include<fstream>
+#include "ReadWriteFile.h"
 using namespace std;
 
 //functions
@@ -82,7 +82,7 @@ int main(int argc, char* argv[])
 	player.CreateGun(gun1Image, Projectile1Image, 10.0f, 50, 0.05f);
 	player.gun->position.w = 30.0f;
 	player.car->player = true;
-	player.car->Health = 1000;
+	player.car->Health = 10;
 	bool DarkMode = false;//switich gun's element between dark and light
 	//GPU_SetRGB(carImage, 255, 0, 0);//change color of the image
 	int Score = 0;
@@ -90,6 +90,9 @@ int main(int argc, char* argv[])
 	int temp = 2;
 	int EnemyElement = 0;
 
+	//local score leaderboard
+	LocalScoreLeaderboard* localScoreLeaderboard= new LocalScoreLeaderboard();
+	bool WriteScoreOnce = false;
 	//set camera
 	Vec2 camera(player.car->position.x, player.car->position.y);
 	camera.w = 5000;
@@ -471,7 +474,7 @@ int main(int argc, char* argv[])
 			loot[i]->Draw(screen);
 		}
 
-		GPU_RectangleFilled(screen, 20, 20, 100, 100, SDL_Color{ 255,255,255 });
+
 
 		//font
 		if (player.car->Health > 0)
@@ -480,13 +483,27 @@ int main(int argc, char* argv[])
 			font.draw(screen, 20, 20, NFont::Color(255 * abs(((1000.0f - (float)player.car->Health) / 1000.0f)), 255 * abs(1 - ((1000.0f - (float)player.car->Health) / 1000.0f)), 0), "Health: %d", player.car->Health);//player's Health amount
 			font.draw(screen, 20, 40, player.gun->AmmoFontColor, "Energy: %d", player.gun->Ammo);//gun1's ammo amount
 			font.draw(screen, 20, 60, player.gun->AmmoFontColor, "Damage: %d", player.gun->damage);//gun1's ammo amount
+			if (Score < 1000) font.draw(screen, 350, 250, NFont::Color(150, 150, 150), "Try your best!!!!!");//title screen when game start
+
+
 		}
 		else
 		{
-			font.draw(screen, 350, 300, NFont::Color(150, 150, 150), "Final Score: %d", Score);//Final Score
 			font.draw(screen, 20, 20, NFont::Color(255, 0, 0), "Health: %d", player.car->Health);//player ran out of Health amount
+			//Score leaderboard
+			if (!WriteScoreOnce)
+			{
+				localScoreLeaderboard->ReadFile("Demo League");
+				localScoreLeaderboard->AddScore(Score);
+				localScoreLeaderboard->GetLeaderboard();
+				localScoreLeaderboard->SortLearderboard();
+				localScoreLeaderboard->WriteFile("Demo League");
+				WriteScoreOnce = true;
+			}
+			localScoreLeaderboard->Draw(screen);
+			font.draw(screen, 350, 100, NFont::Color(255, 255, 255), "Final Score: %d", Score);//Final Score
+
 		}
-		if (Score < 1000) font.draw(screen, 350, 250, NFont::Color(150, 150, 150), "Try your best!!!!!");//title screen when game start
 		font.draw(screen, 350, 5, NFont::Color(255, 255, 255), "Level : %d", (int)ScoreScale);
 
 		//Draw stuff

@@ -31,10 +31,10 @@
     <ClInclude Include="..\..\Blobz\Blobz\Vector.h">
       <Filter>header</Filter>
     </ClInclude>
-    <ClInclude Include="HealthBar.h">
+    <ClInclude Include="Loot.h">
       <Filter>header</Filter>
     </ClInclude>
-    <ClInclude Include="Loot.h">
+    <ClInclude Include="ReadWriteFile.h">
       <Filter>header</Filter>
     </ClInclude>
   </ItemGroup>
