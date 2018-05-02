@@ -193,7 +193,8 @@ int main(int argc, char* argv[])
 				int gunDamage = 1 * (int)ScoreScale;
 				Gun* gun = new Gun(enemyGunImage, enemyProjectileImage, 3.0f, gunDamage, 1.0f);
 				gun->Element = 0;
-				car->accelAmount = 10.0f;
+				uniform_real<float> rand1(10, 20);
+				car->accelAmount = rand1(mt);
 				car->position.w = 20.0f;
 				car->position.h = 30.0f;
 				car->Health = 100 * (int)ScoreScale;
@@ -269,11 +270,9 @@ int main(int argc, char* argv[])
 					if (projectiles[j]->Projectile::IsColliding(enemies[i]))
 					{
 
-
 						//-hitpoint or smth
 						if (isCounter(player.gun->Element, EnemyElement))
 						{
-							cout << 1 << endl;
 							enemies[i]->Health -= projectiles[j]->damage * 2;
 							Score += projectiles[j]->damage * 2;
 							if (enemies[i]->Health <= 0)
@@ -337,7 +336,7 @@ int main(int argc, char* argv[])
 				{
 					if (isColliding(player.car, loot[j]))
 					{
-						if (loot[j]->type == 1) player.gun->Ammo += 50;
+						if (loot[j]->type == 1) player.gun->Ammo += 100;
 						else if (loot[j]->type == 2)player.gun->damage += 5;
 
 						if (loot[j]->type == 3 && player.car->Health + 100 <= 1000)player.car->Health += 100;

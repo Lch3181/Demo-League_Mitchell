@@ -21,8 +21,16 @@ Move: WAD
 Fire: left click
 cost one energy
 
-EMP(discard all the projectiles(include yours) on screen): R
+EMP: R
+Discard all the projectiles(include yours) on screen
 cost 100 energy
+
+Switich guns:
+1:single shot
+2:single shot back and front
+3:shortgun
+4:shortgun back and front
+5:360' no scope
 
 Switich elements: 
 Q:Fire 

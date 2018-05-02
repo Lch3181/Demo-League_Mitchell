@@ -10,7 +10,7 @@ public:
 	SDL_GameController* controller;
 	int Mx, My;
 	bool DarkMode = false;
-
+	int Guntype = 1;
 
 	PlayerController()
 	{
@@ -21,8 +21,26 @@ public:
 
 	void HandleEvent(Vector<Projectile*>&projectiles)
 	{
-		//fire weapon?
-		gun->Gun::Fire(projectiles);
+		if (Guntype == 1)
+		{
+			gun->Gun::Fire(projectiles);
+		}
+		else if (Guntype == 2)
+		{
+			gun->Gun::FireBackward(projectiles);
+		}
+		else if (Guntype == 3)
+		{
+			gun->Gun::ShortGun(projectiles);
+		}
+		else if (Guntype == 4)
+		{
+			gun->Gun::ShortGunBackward(projectiles);
+		}
+		else if (Guntype == 5)
+		{
+			gun->Gun::ForFun(projectiles);
+		}
 	}
 
 	void HandleInputState(const Uint8* keystates, SDL_Event event, Vector<Projectile*>&projectiles)
@@ -58,16 +76,35 @@ public:
 			gun->Element = 3;
 		}
 
-
+		//switich gun's type
+		if (keystates[SDL_SCANCODE_1])//Fire
+		{
+			Guntype = 1;
+		}
+		else if (keystates[SDL_SCANCODE_2])//Nature
+		{
+			Guntype = 2;
+		}
+		else if (keystates[SDL_SCANCODE_3])//Water
+		{
+			Guntype = 3;
+		}
+		else if (keystates[SDL_SCANCODE_4])//Water
+		{
+			Guntype = 4;
+		}
+		else if (keystates[SDL_SCANCODE_5])//Water
+		{
+			Guntype = 5;
+		}
 
 		//Mouse
 		//get mouse position for gun's facing degree
-
+			gun->facingDegrees = atan2(My - car->position.y, Mx - car->position.x) * 180 / (float)M_PI;
 		//if left button down
 		if (SDL_GetMouseState(&Mx, &My)&SDL_BUTTON_LMASK)
 		{
-			gun->facingDegrees = atan2(My - car->position.y, Mx - car->position.x) * 180 / (float)M_PI;
-			gun->Gun::Fire(projectiles);
+			HandleEvent(projectiles);
 		}
 
 

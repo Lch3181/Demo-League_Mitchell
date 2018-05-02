@@ -92,4 +92,8 @@ public:
 	}
 
 	void Fire(Vector<Projectile*>& projectiles); //just a declaration
+	void FireBackward(Vector<Projectile*>&projectiles);
+	void ShortGun(Vector<Projectile*>& projectiles);
+	void ShortGunBackward(Vector<Projectile*>&projectiles);
+	void ForFun(Vector<Projectile*>&projectiles);
 };
