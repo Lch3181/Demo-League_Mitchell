@@ -1,13 +1,14 @@
-﻿  Gun.cpp
+﻿  Collision.cpp
+  Gun.cpp
   main.cpp
 d:\mitchell\documents\gam 220\demo league_mitchell\sdl_gpu_base\readwritefile.h(94): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 d:\mitchell\documents\gam 220\demo league_mitchell\sdl_gpu_base\readwritefile.h(100): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 d:\mitchell\documents\gam 220\demo league_mitchell\sdl_gpu_base\readwritefile.h(103): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\mitchell\documents\gam 220\demo league_mitchell\sdl_gpu_base\main.cpp(483): warning C4244: 'argument': conversion from 'float' to 'Uint8', possible loss of data
+d:\mitchell\documents\gam 220\demo league_mitchell\sdl_gpu_base\main.cpp(482): warning C4244: 'argument': conversion from 'float' to 'Uint8', possible loss of data
      Creating library D:\Mitchell\Documents\GAM 220\Demo League_Mitchell\Release\Demo League.lib and object D:\Mitchell\Documents\GAM 220\Demo League_Mitchell\Release\Demo League.exp
   Generating code
-  1 of 475 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    12 functions had inline decision re-evaluated but remain unchanged
+  15 of 480 functions ( 3.1%) were compiled, the rest were copied from previous compilation.
+    4 functions were new in current compilation
+    10 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   SDL_gpu_base.vcxproj -> D:\Mitchell\Documents\GAM 220\Demo League_Mitchell\Release\Demo League.exe
